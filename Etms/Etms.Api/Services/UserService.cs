@@ -1,19 +1,18 @@
-using System;
-using System.Text;
-using System.Linq;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Etms.Api.Interfaces.Service;
-using Etms.Api.Core.Entities;
-using Etms.Api.Data;
-using Etms.Api.Core.Interfaces;
-using Etms.Api.Core.Interfaces.Repository;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace Etms.Api.Services
 {
+    using Core.Entities;
+    using Core.Interfaces.Repository;
+    using Core.ServiceInterfaces;
+
     public class UserService : IUserService
     {
         private readonly AppSettings _appSettings;
@@ -26,15 +25,14 @@ namespace Etms.Api.Services
             _appSettings = appSettings.Value;
         }
 
-
-        public User Authenticate(string username, string password)
+        public User Authenticate(string email, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return null;
 
             User user;
 
-            user = Users.GetUsersWithRole().FirstOrDefault(x => x.Username == username);
+            user = Users.GetUsersWithRole().FirstOrDefault(x => x.Email == email);
 
             // check if username exists
             if (user == null)
@@ -56,7 +54,7 @@ namespace Etms.Api.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Username),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Role, user.Role.Name)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -78,9 +76,9 @@ namespace Etms.Api.Services
                 throw new Exception("Password is required");
             }
 
-            if (Users.Find(x => x.Username == user.Username).Count() > 0)
+            if (Users.Find(x => x.Email == user.Email).Count() > 0)
             {
-                throw new Exception("Username \"" + user.Username + "\" is already taken");
+                throw new Exception("Email \"" + user.Email + "\" is already taken");
             }
 
             byte[] passwordHash, passwordSalt;
@@ -100,25 +98,30 @@ namespace Etms.Api.Services
             return user;
         }
 
+        public User GetByEmail(string email)
+        {
+            return Users.Find(x => x.Email == email).FirstOrDefault();
+        }
+
         #region Not Implemented
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<User> GetAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public User GetById(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Update(User user, string password = null)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         #endregion
 

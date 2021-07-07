@@ -8,6 +8,7 @@ namespace Etms.Api.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<TimeLog> TimeLogs { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -17,7 +18,7 @@ namespace Etms.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .Property(p => p.Username)
+                .Property(p => p.Email)
                 .IsRequired();
 
             modelBuilder.Entity<User>()

@@ -1,4 +1,4 @@
-namespace Etms
+namespace Etms.Api
 {
     public class AppSettings
     {
