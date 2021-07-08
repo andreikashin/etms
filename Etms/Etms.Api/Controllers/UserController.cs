@@ -47,7 +47,7 @@ namespace Etms.Api.Controllers
                 _userService.Create(user, newUserDto.Password);
                 return Ok(new
                 {
-                    Username = user.Email
+                    Email = user.Email
                 });
             }
             catch (Exception)
@@ -76,7 +76,7 @@ namespace Etms.Api.Controllers
             return Ok(new
             {
                 Id = user.Id,
-                Username = user.Email,
+                Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = user.Token
