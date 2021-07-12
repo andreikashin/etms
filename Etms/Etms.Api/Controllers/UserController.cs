@@ -11,7 +11,7 @@ namespace Etms.Api.Controllers
     using Etms.Api.Core.ServiceInterfaces;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private IUserService _userService;

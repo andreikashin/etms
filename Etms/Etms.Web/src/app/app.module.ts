@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { TimeLogService } from './services/time-log.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    TimeLogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,15 +28,17 @@ namespace Etms.Api.Controllers
         public TimeLogController(
             ITimeLogService timeLogService,
             IUserService userService,
-            IMapper mapper
-            )
+            IMapper mapper, 
+            IHttpContextAccessor httpContextAccessor)
         {
             _timeLogService = timeLogService;
             _userService = userService;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: api/<TimeLogController>
+        //[AllowAnonymous]
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -51,6 +53,7 @@ namespace Etms.Api.Controllers
         }
 
         // POST api/<TimeLogController>
+        //[AllowAnonymous]
         [HttpPost]
         public void Post([FromBody] TimeLogDto dto)
         {

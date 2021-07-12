@@ -1,1 +1,12 @@
-<p>time-log works!</p>
+<form class="form-timelog" #f="ngForm" (ngSubmit)="logTime(f.value)">
+    <h2 class="form-timelog-heading">Please Log In</h2>
+    <div *ngIf="invalidTimeLog" class="alert alert-danger">Invalid time log.</div>
+
+    <label for="startTime" class="sr-only">Start</label>
+    <input type="startTime" id="startTime" name="StartTime" ngModel class="form-control" placeholder="Start" required>
+
+    <label for="endTime" class="sr-only">Start</label>
+    <input type="endTime" id="endTime" name="EndTime" ngModel class="form-control" placeholder="End">
+
+    <button class="btn btn-primary" type="submit">Log Time</button>
+</form>

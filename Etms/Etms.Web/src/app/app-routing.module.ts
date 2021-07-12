@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'timelog', component: TimeLogComponent },
   { path: 'timelog/:id', component: TimeLogComponent },
   { path: "**", component: NotFoundComponent }
 ];

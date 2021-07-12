@@ -5,6 +5,7 @@ import { map, retry } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from './data.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -16,8 +17,11 @@ export class AuthService extends DataService {
   helper = new JwtHelperService();
 
   currentUser: any;
-  registerUrl = '/register';
-  authenticateUrl = '/authenticate';
+  registerUrl = 'user/register';
+  authenticateUrl = 'user/authenticate';
+
+  apiPort = environment.apiPort;
+  baseUrl = `http://${window.location.hostname}${this.apiPort}/api/`;
 
   constructor(http: HttpClient) {
     super('/', http);
@@ -29,13 +33,13 @@ export class AuthService extends DataService {
   }
 
   signup(formData: any) {
-    this.url = this.registerUrl;
+    this.url = this.baseUrl + this.registerUrl;
     return this.create(formData);
     //return this.http.post(url, JSON.stringify(formData));
   }
 
   login(credentials: any) {
-    this.url = this.authenticateUrl;
+    this.url = this.baseUrl + this.authenticateUrl;
     return this.create(credentials)
       // return this.http.post('/authenticate', JSON.stringify(credentials))
       .pipe(
