@@ -38,6 +38,7 @@ namespace Etms.Api
             });
 
             services.AddDbContext<AppDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<DbContext, AppDbContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
 

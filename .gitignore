@@ -348,4 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Etms/Etms.Api/database.db3-wal
+/Etms/Etms.Api/database.db3-shm
 /Etms/Etms.Api/database.db3
