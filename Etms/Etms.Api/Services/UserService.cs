@@ -20,9 +20,11 @@ namespace Etms.Api.Services
         public IRoleRepository Roles { get; set; }
 
         public UserService(
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings, 
+            IUserRepository users)
         {
             _appSettings = appSettings.Value;
+            Users = users;
         }
 
         public User Authenticate(string email, string password)
@@ -87,11 +89,10 @@ namespace Etms.Api.Services
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            var role = Roles
-                .Find(r => r.Name == "User")
-                .FirstOrDefault();
-
-            user.Role = role;
+            //var role = Roles
+            //    .Find(r => r.Name == "User")
+            //    .FirstOrDefault();
+            //user.Role = role;
 
             Users.Add(user);
 

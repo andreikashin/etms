@@ -36,6 +36,7 @@ namespace Etms.Api.Data.Repositories.Base
         public void Add(TEntity entity)
         {
             DbSet.Add(entity);
+            Context.SaveChanges();
         }
 
         public void AddRange(IEnumerable<TEntity> entities)

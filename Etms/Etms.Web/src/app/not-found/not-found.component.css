@@ -1,0 +1,31 @@
+.vericaltext {
+    font-family: monospace;
+    /*text-align: center;*/
+    font-size: 64px;
+}
+
+.vericaltext1 {
+    width: 1px;
+    word-wrap: break-word;
+    font-family: monospace;
+    text-align: center;
+    font-size: 64px;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+}
+
+.container {
+    display: flex;
+}
+
+.container>div {
+    flex: 1;
+    /*grow*/
+}
+
+strong {
+    color: darkred;
+}
