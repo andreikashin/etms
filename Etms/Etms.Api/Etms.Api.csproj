@@ -9,7 +9,6 @@
 
 	<ItemGroup>
 		<Folder Include="Core\Constants\" />
-		<Folder Include="Core\Helpers\" />
 		<Folder Include="Migrations\" />
 	</ItemGroup>
 	

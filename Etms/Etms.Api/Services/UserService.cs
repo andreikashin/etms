@@ -20,9 +20,13 @@ namespace Etms.Api.Services
         public IRoleRepository Roles { get; set; }
 
         public UserService(
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings,
+            IUserRepository users, 
+            IRoleRepository roles)
         {
             _appSettings = appSettings.Value;
+            Users = users;
+            Roles = roles;
         }
 
         public User Authenticate(string email, string password)

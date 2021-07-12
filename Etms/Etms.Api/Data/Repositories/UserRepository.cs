@@ -11,7 +11,7 @@ namespace Etms.Api.Data.Repositories
     {
         public AppDbContext AppDbContext => Context as AppDbContext;
 
-        public UserRepository(DbContext context) : base(context)
+        public UserRepository(AppDbContext context) : base(context)
         { }
 
         public IEnumerable<User> GetUsersWithRole()

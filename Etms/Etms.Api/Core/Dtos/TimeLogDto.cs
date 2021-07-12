@@ -7,5 +7,9 @@ namespace Etms.Api.Core.Dtos
 {
     public class TimeLogDto
     {
+        public string Email { get; set; }
+        public string Description { get; set; }
+        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset? EndTime { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace Etms.Api
 {
     using Core.ServiceInterfaces;
     using Data;
+    using Etms.Api.Core.Interfaces.Repository;
+    using Etms.Api.Data.Repositories;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Services;
@@ -69,6 +71,10 @@ namespace Etms.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITimeLogService, TimeLogService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // DI for repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

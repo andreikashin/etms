@@ -1,6 +1,8 @@
 ﻿using Etms.Api.Core.Entities;
+using Etms.Api.Core.Helpers;
 using Etms.Api.Core.RepositoryInterfaces;
 using Etms.Api.Core.ServiceInterfaces;
+using System;
 
 namespace Etms.Api.Services
 {
@@ -17,7 +19,7 @@ namespace Etms.Api.Services
                 // task is ongoing
             }
 
-            if(lastLog.EndTime > log.StartTime)
+            if(!TimeLogHelper.CanStoreLog(log, lastLog))
             {
                 // time overlap
             }
