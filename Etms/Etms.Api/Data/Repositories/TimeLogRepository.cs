@@ -10,7 +10,7 @@ namespace Etms.Api.Data.Repositories
     {
         public AppDbContext AppDbContext => Context as AppDbContext;
 
-        public TimeLogRepository(DbContext context) : base(context)
+        public TimeLogRepository(AppDbContext context) : base(context)
         { }
 
         public TimeLog GetLastLogByUser(User user)
@@ -19,7 +19,32 @@ namespace Etms.Api.Data.Repositories
                .TimeLogs
                .Where(x => x.UserId == user.Id)
                .Include(x => x.User)
+               .ToList()
                .LastOrDefault();
+        }
+
+        public TimeLog GetPrevUserLogByCurrentLog(TimeLog log)
+        {
+            return AppDbContext
+               .TimeLogs
+               .Where(x => x.UserId == log.UserId &&
+                           x.EndTime <= log.StartTime)
+               .OrderBy(x => x.EndTime)
+               .Include(x => x.User)
+               .ToList()
+               .LastOrDefault();
+        }
+
+        public TimeLog GetNextUserLogByCurrentLog(TimeLog log)
+        {
+            return AppDbContext
+               .TimeLogs
+               .Where(x => x.UserId == log.UserId &&
+                           x.StartTime >= log.EndTime)
+               .Include(x => x.User)
+               .OrderBy(x => x.StartTime)
+               .ToList()
+               .FirstOrDefault();
         }
     }
 }

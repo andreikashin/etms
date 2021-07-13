@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { TimeLogService } from './services/time-log.service';
 import { AuthInterceptor } from './common/helpers/auth.interceptor';
+import { TimeLogModifyComponent } from './time-log-modify/time-log-modify.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthInterceptor } from './common/helpers/auth.interceptor';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    TimeLogModifyComponent
   ],
   imports: [
     BrowserModule,

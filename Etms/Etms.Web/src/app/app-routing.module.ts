@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SignupComponent } from './signup/signup.component';
+import { TimeLogModifyComponent } from './time-log-modify/time-log-modify.component';
 import { TimeLogComponent } from './time-log/time-log.component';
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'timelog', component: TimeLogComponent },
-  { path: 'timelog/:id', component: TimeLogComponent },
+  { path: 'timelog/:id', component: TimeLogModifyComponent },
   { path: "**", component: NotFoundComponent }
 ];
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { DataService } from './data.service';
@@ -12,14 +12,19 @@ export class TimeLogService extends DataService {
 
   apiPort = environment.apiPort;
   baseUrl = `http://${window.location.hostname}${this.apiPort}/api/`;
-  
+
   constructor(http: HttpClient) {
     super('/', http);
-    
+
   }
 
   logTime(logForm: any) {
     this.url = this.baseUrl + this.timeLogUrl;
     return this.create(logForm);
+  }
+
+  modify(logForm: any) {
+    this.url = this.baseUrl + this.timeLogUrl;
+    return this.update(logForm);
   }
 }

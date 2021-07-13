@@ -10,5 +10,7 @@ namespace Etms.Api.Core.RepositoryInterfaces
     public interface ITimeLogRepository : IRepository<TimeLog>
     {
         TimeLog GetLastLogByUser(User user);
+        TimeLog GetPrevUserLogByCurrentLog(TimeLog log);
+        TimeLog GetNextUserLogByCurrentLog(TimeLog log);
     }
 }

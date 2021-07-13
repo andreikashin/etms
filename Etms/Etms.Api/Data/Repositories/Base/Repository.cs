@@ -54,5 +54,11 @@ namespace Etms.Api.Data.Repositories.Base
         {
             DbSet.RemoveRange(entities);
         }
+
+        public void Update(TEntity entity)
+        {
+            DbSet.Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
+        }
     }
 }

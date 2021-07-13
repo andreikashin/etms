@@ -5,5 +5,6 @@ namespace Etms.Api.Core.ServiceInterfaces
     public interface ITimeLogService
     {
         void Insert(TimeLog log);
+        void Modify(TimeLog log);
     }
 }

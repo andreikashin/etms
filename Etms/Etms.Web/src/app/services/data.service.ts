@@ -12,7 +12,8 @@ export class DataService {
   httpOptions = {
     headers: new HttpHeaders({
       'Accept': 'application/x-www-form-urlencoded',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
     })
   };
 
@@ -26,7 +27,7 @@ export class DataService {
   }
 
   getAll() {
-    
+
     return this.http.get(this.url)
       .pipe(
         map((response: any) => response.json()),
@@ -54,7 +55,17 @@ export class DataService {
 
   update(resource: { id: string; }) {
 
-    return this.http.patch(this.url + "/" + resource.id, JSON.stringify({ isRead: true }))
+    return this.http.patch(this.url + "/" + resource.id, JSON.stringify(resource), this.httpOptions)
+      .pipe(
+        map((response: any) => response.json()),
+        catchError(this.handleError)
+      );
+  }
+
+
+  replace(resource: { id: string; }) {
+
+    return this.http.put(this.url + "/" + resource.id, JSON.stringify(resource), this.httpOptions)
       .pipe(
         map((response: any) => response.json()),
         catchError(this.handleError)
