@@ -32,6 +32,10 @@ export class AuthService extends DataService {
     }
   }
 
+  getToken(){
+    return localStorage.getItem('token');
+  }
+
   signup(formData: any) {
     this.url = this.baseUrl + this.registerUrl;
     return this.create(formData);

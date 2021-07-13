@@ -22,6 +22,4 @@ export class TimeLogService extends DataService {
     this.url = this.baseUrl + this.timeLogUrl;
     return this.create(logForm);
   }
-
-  
 }

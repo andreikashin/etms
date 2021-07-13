@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private authService: AuthService) {
     this.form = fb.group({
-      username: ['', [
+      email: ['', [
         Validators.required,
         Validators.email,
         Validators.minLength(7),
@@ -51,8 +51,8 @@ export class SignupComponent implements OnInit {
   signup(formData: any) {
     this.authService.signup(formData)
       .subscribe((result: any) => {
-        if (result && result.username) {
-          this.router.navigate(['/login'], { queryParams: { username: result.username } });
+        if (result && result.email) {
+          this.router.navigate(['/login'], { queryParams: { email: result.email } });
         }
         else {
           this.invalidSignup = true;
@@ -65,8 +65,8 @@ export class SignupComponent implements OnInit {
       });
   }
 
-  get username() {
-    return this.form.get('username');
+  get email() {
+    return this.form.get('email');
   }
   get password() {
     return this.form.get('password');

@@ -91,10 +91,9 @@ namespace Etms.Api
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            //app.UseHttpsRedirection();
-
-            app.UseAuthentication();
+            app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

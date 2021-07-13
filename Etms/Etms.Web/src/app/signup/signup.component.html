@@ -1,1 +1,46 @@
-<p>signup works!</p>
+<form class="form-signup" #f="ngForm" (ngSubmit)="signup(f.value)" (change)="log()" [formGroup]="form">
+    <h2 class="form-signup-heading">Register User</h2>
+  
+    <div class="form-group">
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email Address"
+        formControlName="email" autofocus>
+      <div *ngIf="invalidSignup || form.errors?.alreadyTaken" class="alert alert-danger">Already registered</div>
+      <div *ngIf="email?.touched && email?.invalid" class="alert alert-danger">
+        <div *ngIf="email?.errors?.email">Invalid email</div>
+        <!-- <div *ngIf="email?.errors?.required">Username required</div> -->
+        <div *ngIf="email?.errors?.cannotContainSpace">No spaces allowed</div>
+        <!-- <div *ngIf="email?.errors?.minlength">
+          Username minimum length is {{email?.errors?.minlength?.requiredLength}}
+        </div> -->
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Enter Password"
+        formControlName="password">
+      <div *ngIf="password?.touched && password?.invalid" class="alert alert-danger">
+        Field required
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="repeatPassword" class="sr-only">Confirm Password</label>
+      <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" placeholder="Repeat Password"
+        formControlName="confirmPassword">
+      <div *ngIf="confirmPassword?.touched && confirmPassword?.invalid" class="alert alert-danger">
+        Field required
+      </div>
+      <div *ngIf="confirmPassword?.valid && form?.invalid && form.errors?.mustMatch" class="alert alert-danger">
+        Passwords do not match
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <button class="btn btn-outline-primary" type="reset">Clear</button>
+      &nbsp;&nbsp;&nbsp;
+      <button class="btn btn-primary" type="submit">Sign Up</button>
+    </div>
+  
+  </form>

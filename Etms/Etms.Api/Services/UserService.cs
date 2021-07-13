@@ -59,7 +59,7 @@ namespace Etms.Api.Services
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role.Name)
+                    new Claim(ClaimTypes.Role, user.Role?.Name)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
@@ -91,10 +91,10 @@ namespace Etms.Api.Services
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            //var role = Roles
-            //    .Find(r => r.Name == "User")
-            //    .FirstOrDefault();
-            //user.Role = role;
+            var role = Roles
+                .Find(r => r.Name == "User")
+                .FirstOrDefault();
+            user.Role = role;
 
             Users.Add(user);
 

@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { TimeLogService } from './services/time-log.service';
+import { AuthInterceptor } from './common/helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,11 +28,13 @@ import { TimeLogService } from './services/time-log.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
   ],
   providers: [
     AuthService,
+    AuthInterceptor,
     TimeLogService
   ],
   bootstrap: [AppComponent]
