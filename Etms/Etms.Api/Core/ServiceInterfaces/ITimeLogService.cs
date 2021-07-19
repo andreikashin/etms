@@ -6,5 +6,7 @@ namespace Etms.Api.Core.ServiceInterfaces
     {
         void Insert(TimeLog log);
         void Modify(TimeLog log);
+        TimeLog FindById(int id);
+        void UpdateTimeLog();
     }
 }

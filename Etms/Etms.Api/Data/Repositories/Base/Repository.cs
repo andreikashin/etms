@@ -59,6 +59,12 @@ namespace Etms.Api.Data.Repositories.Base
         {
             DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
+            Context.SaveChanges();
+        }
+
+        public void Commit()
+        {
+            Context.SaveChanges();
         }
     }
 }

@@ -5,6 +5,7 @@ using Etms.Api.Core.RepositoryInterfaces;
 using Etms.Api.Core.ServiceInterfaces;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 
 namespace Etms.Api.Services
 {
@@ -76,6 +77,18 @@ namespace Etms.Api.Services
             }
 
             TimeLogs.Update(log);
+        }
+
+        public TimeLog FindById(int id)
+        {
+            return TimeLogs
+                .Find(x => x.Id == id)
+                .FirstOrDefault();
+        }
+
+        public void UpdateTimeLog()
+        {
+            TimeLogs.Commit();
         }
     }
 }

@@ -17,5 +17,6 @@ namespace Etms.Api.Core.Interfaces.Repository.Base
         void RemoveRange(IEnumerable<TEntity> entities);
 
         void Update(TEntity entity);
+        void Commit();
     }
 }

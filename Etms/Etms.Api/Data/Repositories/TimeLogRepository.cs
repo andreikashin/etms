@@ -27,11 +27,11 @@ namespace Etms.Api.Data.Repositories
         {
             return AppDbContext
                .TimeLogs
-               .Where(x => x.UserId == log.UserId &&
-                           x.EndTime <= log.StartTime)
-               .OrderBy(x => x.EndTime)
                .Include(x => x.User)
+               .Where(x => x.UserId == log.UserId)
                .ToList()
+               .Where(x => x.EndTime <= log.StartTime)
+               .OrderBy(x => x.EndTime)
                .LastOrDefault();
         }
 
@@ -39,11 +39,11 @@ namespace Etms.Api.Data.Repositories
         {
             return AppDbContext
                .TimeLogs
-               .Where(x => x.UserId == log.UserId &&
-                           x.StartTime >= log.EndTime)
                .Include(x => x.User)
-               .OrderBy(x => x.StartTime)
+               .Where(x => x.UserId == log.UserId)
                .ToList()
+               .Where(x => x.StartTime >= log.EndTime)
+               .OrderBy(x => x.StartTime)
                .FirstOrDefault();
         }
     }

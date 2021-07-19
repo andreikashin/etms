@@ -63,7 +63,7 @@ namespace Etms.Api.Controllers
             _timeLogService.Insert(timeLog);
         }
 
-        // PUT api/<TimeLogController>/5
+        // PATCH api/<TimeLogController>/5
         [HttpPatch("{id}")]
         public void Patch(int id, [FromBody] TimeLogDto dto)
         {
@@ -81,8 +81,9 @@ namespace Etms.Api.Controllers
             var modifiedTimeLog = _mapper.Map<TimeLog>(dto);
             modifiedTimeLog.Id = id;
 
-
-
+            var obj = _timeLogService.FindById(id);
+            obj = modifiedTimeLog;
+            _timeLogService.UpdateTimeLog();
         }
 
         // DELETE api/<TimeLogController>/5
