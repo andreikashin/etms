@@ -42,6 +42,7 @@ namespace Etms.Api
             //services.AddScoped<DbContext, AppDbContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+            //services.AddNewtonsoftJson();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");

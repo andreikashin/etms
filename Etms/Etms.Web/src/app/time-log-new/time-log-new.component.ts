@@ -6,40 +6,18 @@ import { AppError } from 'src/app/common/errors/app.error';
 import { TimeLogService } from '../services/time-log.service';
 
 @Component({
-  selector: 'time-log',
-  templateUrl: './time-log.component.html',
-  styleUrls: ['./time-log.component.css']
+  selector: 'time-log-new',
+  templateUrl: './time-log-new.component.html',
+  styleUrls: ['./time-log-new.component.css']
 })
-export class TimeLogComponent implements OnInit {
+export class TimeLogNewComponent implements OnInit {
 
   invalidTimeLog: boolean = false;
-  timeLogs: any[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private timeLogService: TimeLogService) {
-      this.getLogs();
-     }
-
-  getLogs() {
-    console.log("get time logs");
-    this.timeLogService.getLogs()
-      .subscribe(result => {
-        if (result) {
-          console.log("timelogs ok");
-          this.timeLogs = result;
-        //this.router.navigate(['/']);
-        }
-        else {
-          this.invalidTimeLog = true;
-        }
-      }, (error: AppError) => {
-        if (error instanceof BadRequestError) {
-          alert(error.originalError?.error.message);
-        }
-      });
-  }
+    private timeLogService: TimeLogService) { }
 
   logTime(timeLog: any) {
     console.log("time log");
@@ -47,7 +25,7 @@ export class TimeLogComponent implements OnInit {
       .subscribe(result => {
         if (result)
           console.log("timelog ok");
-        //this.router.navigate(['/']);
+          //this.router.navigate(['/']);
         else
           this.invalidTimeLog = true;
       }, (error: AppError) => {

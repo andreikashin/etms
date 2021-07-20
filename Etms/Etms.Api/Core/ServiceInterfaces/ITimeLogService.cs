@@ -1,4 +1,5 @@
 ﻿using Etms.Api.Core.Entities;
+using System.Collections.Generic;
 
 namespace Etms.Api.Core.ServiceInterfaces
 {
@@ -8,5 +9,8 @@ namespace Etms.Api.Core.ServiceInterfaces
         void Modify(TimeLog log);
         TimeLog FindById(int id);
         void UpdateTimeLog();
+        List<TimeLog> GetAll();
+        List<TimeLog> GetAllByUser(User user);
+        void DeleteById(int id);
     }
 }

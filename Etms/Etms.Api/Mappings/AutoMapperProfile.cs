@@ -11,7 +11,9 @@ namespace Etms.Api.Mappings
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, NewUserDto>().ReverseMap();
-            CreateMap<TimeLog, TimeLogDto>().ReverseMap();
+            CreateMap<TimeLog, TimeLogDto>()
+                .ForMember(m => m.Email, o => o.MapFrom(tl => tl.User.Email))
+                .ReverseMap();
         }
     }
 }

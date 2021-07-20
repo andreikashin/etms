@@ -48,6 +48,7 @@ namespace Etms.Api.Data.Repositories.Base
         public void Remove(TEntity entity)
         {
             DbSet.Remove(entity);
+            Context.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)

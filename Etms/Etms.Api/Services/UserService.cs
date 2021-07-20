@@ -103,7 +103,10 @@ namespace Etms.Api.Services
 
         public User GetByEmail(string email)
         {
-            return Users.Find(x => x.Email == email).FirstOrDefault();
+            return Users
+                .GetUsersWithRole()
+                .Where(x => x.Email == email)
+                .FirstOrDefault();
         }
 
         #region Not Implemented

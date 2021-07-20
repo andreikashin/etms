@@ -18,6 +18,17 @@ export class TimeLogService extends DataService {
 
   }
 
+  getLog(id: string) {
+    this.url = this.baseUrl + this.timeLogUrl;
+    let result = this.get(id);
+    return result;
+  }
+
+  getLogs() {
+    this.url = this.baseUrl + this.timeLogUrl;
+    return this.getAll();
+  }
+
   logTime(logForm: any) {
     this.url = this.baseUrl + this.timeLogUrl;
     return this.create(logForm);
@@ -25,6 +36,6 @@ export class TimeLogService extends DataService {
 
   modify(logForm: any) {
     this.url = this.baseUrl + this.timeLogUrl;
-    return this.update(logForm);
+    return this.replace(logForm);
   }
 }

@@ -1,10 +1,9 @@
 ﻿using Etms.Api.Core.Entities;
 using Etms.Api.Core.Helpers;
-using Etms.Api.Core.Interfaces.Repository;
 using Etms.Api.Core.RepositoryInterfaces;
 using Etms.Api.Core.ServiceInterfaces;
-using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Etms.Api.Services
@@ -89,6 +88,26 @@ namespace Etms.Api.Services
         public void UpdateTimeLog()
         {
             TimeLogs.Commit();
+        }
+
+        public List<TimeLog> GetAll()
+        {
+            return TimeLogs
+                .GetAll()
+                .ToList();
+        }
+
+        public List<TimeLog> GetAllByUser(User user)
+        {
+            return TimeLogs
+                .Find(x => x.User == user)
+                .ToList();
+        }
+
+        public void DeleteById(int id)
+        {
+            var timeLog = TimeLogs.Find(x => x.Id == id).Single();
+            TimeLogs.Remove(timeLog);
         }
     }
 }

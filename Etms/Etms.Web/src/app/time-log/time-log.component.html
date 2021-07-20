@@ -1,15 +1,9 @@
-<form class="form-timelog" #f="ngForm" (ngSubmit)="logTime(f.value)">
-    <h2 class="form-timelog-heading">Create Time Log</h2>
-    <div *ngIf="invalidTimeLog" class="alert alert-danger">Invalid time log.</div>
-
-    <label for="startTime" class="sr-only">Start</label>
-    <input type="startTime" id="startTime" name="StartTime" ngModel class="form-control" placeholder="Start" required>
-
-    <label for="endTime" class="sr-only">End</label>
-    <input type="endTime" id="endTime" name="EndTime" ngModel class="form-control" placeholder="End">
-    
-    <label for="desc" class="sr-only">Description</label>
-    <input type="desc" id="desc" name="Description" ngModel class="form-control" placeholder="Description">
-
-    <button class="btn btn-primary" type="submit">Log Time</button>
-</form>
+<p>Time Logs</p>
+<ul class="list-group">
+    <li *ngFor="let log of timeLogs" class="list-group-item">
+        {{log.description}} | {{log.startTime}} -> {{log.endTime}} | {{log.id}}
+        <button type="button" class="btn btn-link" [routerLink]="[log.id]">Edit</button>
+        <button type="button" class="btn btn-link">Delete</button>
+    </li>
+</ul>
+<button type="button" class="btn btn-primary btn-sm">New Log</button>

@@ -28,18 +28,18 @@ export class DataService {
 
   getAll() {
 
-    return this.http.get(this.url)
+    return this.http.get(this.url, this.httpOptions)
       .pipe(
-        map((response: any) => response.json()),
+        map((response: any) => JSON.parse(JSON.stringify(response))),
         catchError(this.handleError)
       );
   }
 
   get(id: string) {
 
-    return this.http.get(this.url + '/' + id)
+    return this.http.get(this.url + '/' + id, this.httpOptions)
       .pipe(
-        map((response: any) => response.json()),
+        map((response: any) => JSON.parse(JSON.stringify(response))),
         catchError(this.handleError)
       );
   }
@@ -67,7 +67,7 @@ export class DataService {
 
     return this.http.put(this.url + "/" + resource.id, JSON.stringify(resource), this.httpOptions)
       .pipe(
-        map((response: any) => response.json()),
+        map((response: any) => JSON.parse(JSON.stringify(response))),
         catchError(this.handleError)
       );
   }

@@ -28,7 +28,7 @@ namespace Etms.Api.Controllers
         public TimeLogController(
             ITimeLogService timeLogService,
             IUserService userService,
-            IMapper mapper, 
+            IMapper mapper,
             IHttpContextAccessor httpContextAccessor)
         {
             _timeLogService = timeLogService;
@@ -40,16 +40,43 @@ namespace Etms.Api.Controllers
         // GET: api/<TimeLogController>
         //[AllowAnonymous]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var userEmail = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            var user = _userService.GetByEmail(userEmail);
+
+            if (user.Role?.Name == "Admin")
+            {
+                var logs = _timeLogService.GetAll();
+                return Ok(_mapper.Map<TimeLogDto>(logs));
+            }
+
+            var timeLogs = _timeLogService.GetAllByUser(user);
+
+            if (timeLogs.Any())
+            {
+                var dtoList = timeLogs.Select(_mapper.Map<TimeLogDto>);
+                return Ok(dtoList);
+            }
+
+            return NotFound();
         }
 
         // GET api/<TimeLogController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var userEmail = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            var user = _userService.GetByEmail(userEmail);
+            var timeLog = _timeLogService.FindById(id);
+
+            if (user.Role?.Name == "Admin" ||
+                timeLog.User == user)
+            {
+                return Ok(_mapper.Map<TimeLogDto>(timeLog));
+            }
+
+            return NotFound(id);
         }
 
         // POST api/<TimeLogController>
@@ -70,26 +97,57 @@ namespace Etms.Api.Controllers
             var modifiedTimeLog = _mapper.Map<TimeLog>(dto);
             modifiedTimeLog.Id = id;
 
+            var existingLog = _timeLogService.FindById(id);
+            if (!string.IsNullOrWhiteSpace(modifiedTimeLog.Description))
+            {
+                existingLog.Description = modifiedTimeLog.Description;
+            }
 
+            if (modifiedTimeLog.StartTime != default(DateTimeOffset) &&
+                modifiedTimeLog.StartTime != existingLog.StartTime)
+            {
+                existingLog.StartTime = modifiedTimeLog.StartTime;
+            }
 
+            if (modifiedTimeLog.EndTime != null &&
+                modifiedTimeLog.EndTime != default(DateTimeOffset) &&
+                modifiedTimeLog.EndTime != existingLog.EndTime)
+            {
+                existingLog.EndTime = modifiedTimeLog.EndTime;
+            }
+
+            _timeLogService.UpdateTimeLog();
         }
-        
+
         // PUT api/<TimeLogController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] TimeLogDto dto)
+        public IActionResult Put(int id, [FromBody] TimeLogDto dto)
         {
-            var modifiedTimeLog = _mapper.Map<TimeLog>(dto);
-            modifiedTimeLog.Id = id;
-
-            var obj = _timeLogService.FindById(id);
-            obj = modifiedTimeLog;
+            var existingLog = _timeLogService.FindById(id);
+            existingLog.StartTime = dto.StartTime;
+            existingLog.EndTime = dto.EndTime;
+            existingLog.Description = dto.Description;
             _timeLogService.UpdateTimeLog();
+
+            return Ok(_mapper.Map<TimeLogDto>(existingLog));
         }
 
         // DELETE api/<TimeLogController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var userEmail = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            var user = _userService.GetByEmail(userEmail);
+            var timeLog = _timeLogService.FindById(id);
+
+            if (user.Role?.Name == "Admin" ||
+                timeLog?.User == user)
+            {
+                _timeLogService.DeleteById(id);
+                return Ok();
+            }
+
+            return NotFound();
         }
     }
 }
